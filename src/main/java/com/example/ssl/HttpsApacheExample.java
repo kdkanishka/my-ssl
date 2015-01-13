@@ -67,10 +67,13 @@ public class HttpsApacheExample {
                 .setRoutePlanner(routePlanner)
                 .build();
 
-        HttpPost post = new HttpPost("https://api.basware.com/peppol/as2");
-        post.setEntity(new ByteArrayEntity("test".getBytes()));
-        CloseableHttpResponse response = httpclient.execute(post);
-        System.out.println(response.toString());
+        HttpGet get = new HttpGet("https://api.basware.com/peppol/as2");
+        //post.setEntity(new ByteArrayEntity("test".getBytes()));
+        CloseableHttpResponse response = httpclient.execute(get);
+        byte b[] = new byte[20];
+        response.getEntity().getContent().read(b);
+        System.out.println("Test2 -------->");
+        System.out.println(new String(b));
         httpclient.close();
         response.close();
     }
@@ -78,7 +81,7 @@ public class HttpsApacheExample {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException {
 //        test1();
-//        test2();
-        testUrlConnection();
+        test2();
+//        testUrlConnection();
     }
 }
