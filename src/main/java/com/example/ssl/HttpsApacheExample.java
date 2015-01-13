@@ -9,26 +9,42 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.SystemDefaultRoutePlanner;
+import sun.net.www.protocol.https.HttpsURLConnectionImpl;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ProxySelector;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
 public class HttpsApacheExample {
-    public static void test1() throws IOException {
+    public static void testXXX() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet get = new HttpGet("https://api.basware.com/peppol/as2");
         CloseableHttpResponse response = httpClient.execute(get);
         System.out.println(response.toString());
         httpClient.close();
         response.close();
+    }
+
+    public static void testUrlConnection() throws IOException {
+        URL url = new URL("https://api.basware.com/peppol/as2");
+        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+        conn.setDoInput(true);
+        InputStream is = conn.getInputStream();
+        byte []b = new byte[1000];
+        is.read(b);
+        System.out.println("Data " + new String(b));
+
     }
 
     public static void test2() throws KeyManagementException, NoSuchAlgorithmException, IOException {
@@ -61,7 +77,8 @@ public class HttpsApacheExample {
 
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, KeyManagementException {
-        test1();
-        test2();
+//        test1();
+//        test2();
+        testUrlConnection();
     }
 }
