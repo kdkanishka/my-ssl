@@ -1,6 +1,5 @@
 package com.example.ssl;
 
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -14,6 +13,7 @@ import org.apache.http.impl.conn.SystemDefaultRoutePlanner;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+
 import java.io.IOException;
 import java.net.ProxySelector;
 import java.security.KeyManagementException;
@@ -21,12 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
-/**
- * Created by sajith on 1/10/15.
- */
 public class HttpsApacheExample {
-
-
     public static void test1() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet get = new HttpGet("https://api.basware.com/peppol/as2");
